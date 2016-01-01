@@ -50,5 +50,6 @@
 - (void)setBorderWidth:(CGFloat)borderWidth;
 - (void)setFontSize:(CGFloat)fontSize;
 - (NSString *)htmlString;
+- (void)selectAll:(id)sender;
 
 @end

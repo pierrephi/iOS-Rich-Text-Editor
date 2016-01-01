@@ -195,6 +195,13 @@
     [self applyFontAttributesToSelectedRangeWithBoldTrait:nil italicTrait:nil fontName:nil fontSize:[NSNumber numberWithFloat:fontSize]];
 }
 
+- (void)selectAll:(id)sender
+{
+    [super selectAll:sender];
+    UITextRange *selectionRange = [self textRangeFromPosition:self.beginningOfDocument toPosition:self.endOfDocument];
+    [self performSelector:@selector(setSelectedTextRange:) withObject:selectionRange afterDelay:0.0];
+}
+
 #pragma mark - RichTextEditorToolbarDelegate Methods -
 
 - (void)richTextEditorToolbarDidSelectBold
