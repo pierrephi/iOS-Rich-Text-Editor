@@ -518,7 +518,7 @@
 		158389051735A5D7006DE713 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastTestingUpgradeCheck = 0700;
+				LastTestingUpgradeCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Aryan Ghassemi";
 			};

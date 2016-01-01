@@ -48,6 +48,7 @@
 
 - (void)setBorderColor:(UIColor*)borderColor;
 - (void)setBorderWidth:(CGFloat)borderWidth;
+- (void)setFontSize:(CGFloat)fontSize;
 - (NSString *)htmlString;
 
 @end

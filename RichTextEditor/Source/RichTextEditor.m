@@ -190,6 +190,11 @@
     self.layer.borderWidth = borderWidth;
 }
 
+- (void)setFontSize:(CGFloat)fontSize
+{
+    [self applyFontAttributesToSelectedRangeWithBoldTrait:nil italicTrait:nil fontName:nil fontSize:[NSNumber numberWithFloat:fontSize]];
+}
+
 #pragma mark - RichTextEditorToolbarDelegate Methods -
 
 - (void)richTextEditorToolbarDidSelectBold
