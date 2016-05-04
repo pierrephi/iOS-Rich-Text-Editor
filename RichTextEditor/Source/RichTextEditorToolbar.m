@@ -27,11 +27,9 @@
 
 #import "RichTextEditorToolbar.h"
 #import <CoreText/CoreText.h>
-#import "RichTextEditorPopover.h"
 #import "RichTextEditorFontSizePickerViewController.h"
 #import "RichTextEditorFontPickerViewController.h"
 #import "RichTextEditorColorPickerViewController.h"
-#import "WEPopoverController.h"
 #import "RichTextEditorToggleButton.h"
 #import "UIFont+RichTextEditor.h"
 
@@ -40,7 +38,6 @@
 #define ITEM_WITH 40
 
 @interface RichTextEditorToolbar() <RichTextEditorFontSizePickerViewControllerDelegate, RichTextEditorFontSizePickerViewControllerDataSource, RichTextEditorFontPickerViewControllerDelegate, RichTextEditorFontPickerViewControllerDataSource, RichTextEditorColorPickerViewControllerDataSource, RichTextEditorColorPickerViewControllerDelegate>
-@property (nonatomic, strong) id <RichTextEditorPopover> popover;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnBold;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnItalic;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnUnderline;
@@ -507,51 +504,18 @@
 
 - (void)presentViewController:(UIViewController *)viewController fromView:(UIView *)view
 {
-	if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal)
-	{
-		viewController.modalPresentationStyle = [self.dataSource modalPresentationStyleForRichTextEditorToolbar];
-		viewController.modalTransitionStyle = [self.dataSource modalTransitionStyleForRichTextEditorToolbar];
-		[[self.dataSource firsAvailableViewControllerForRichTextEditorToolbar] presentViewController:viewController animated:YES completion:nil];
-	}
-	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover)
-	{
-		id <RichTextEditorPopover> popover = [self popoverWithViewController:viewController];
-		[popover presentPopoverFromRect:view.frame inView:self permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-	}
-}
-
-- (id <RichTextEditorPopover>)popoverWithViewController:(UIViewController *)viewController
-{
-	id <RichTextEditorPopover> popover;
-	
-	if (!popover)
-	{
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		{
-			popover = (id<RichTextEditorPopover>) [[UIPopoverController alloc] initWithContentViewController:viewController];
-		}
-		else
-		{
-			popover = (id<RichTextEditorPopover>) [[WEPopoverController alloc] initWithContentViewController:viewController];
-		}
-	}
-	
-	[self.popover dismissPopoverAnimated:YES];
-	self.popover = popover;
-	
-	return popover;
+    viewController.modalPresentationStyle = [self.dataSource modalPresentationStyleForRichTextEditorToolbar];
+    viewController.modalTransitionStyle = [self.dataSource modalTransitionStyleForRichTextEditorToolbar];
+    [[self.dataSource firsAvailableViewControllerForRichTextEditorToolbar] presentViewController:viewController animated:YES completion:nil];
+    viewController.popoverPresentationController.passthroughViews = nil;
+    viewController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    viewController.popoverPresentationController.sourceView = view;
+    viewController.popoverPresentationController.sourceRect = view.bounds;
 }
 
 - (void)dismissViewController
 {
-	if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal)
-	{
-		[[self.dataSource firsAvailableViewControllerForRichTextEditorToolbar] dismissViewControllerAnimated:YES completion:NO];
-	}
-	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover)
-	{
-		[self.popover dismissPopoverAnimated:YES];
-	}
+    [[self.dataSource firsAvailableViewControllerForRichTextEditorToolbar] dismissViewControllerAnimated:YES completion:NO];
 }
 
 #pragma mark - RichTextEditorColorPickerViewControllerDelegate & RichTextEditorColorPickerViewControllerDataSource Methods -

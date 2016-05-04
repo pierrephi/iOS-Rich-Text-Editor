@@ -581,9 +581,7 @@
 		return [self.dataSource presentationStyleForRichTextEditor:self];
 	}
 
-	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		? RichTextEditorToolbarPresentationStylePopover
-		: RichTextEditorToolbarPresentationStyleModal;
+    return RichTextEditorToolbarPresentationStylePopover;
 }
 
 - (UIModalPresentationStyle)modalPresentationStyleForRichTextEditorToolbar
@@ -593,9 +591,7 @@
 		return [self.dataSource modalPresentationStyleForRichTextEditor:self];
 	}
 	
-	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		? UIModalPresentationFormSheet
-		: UIModalPresentationFullScreen;
+	return UIModalPresentationPopover;
 }
 
 - (UIModalTransitionStyle)modalTransitionStyleForRichTextEditorToolbar
