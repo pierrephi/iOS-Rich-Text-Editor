@@ -3,6 +3,7 @@ Pod::Spec.new do |s|
     s.version = '0.0.3'
     s.summary = 'A RichTextEditor for iPhone & iPad.'
     s.homepage = 'https://github.com/aryaxt/iOS-Rich-Text-Editor'
+	s.dependency 'FontAwesomeKit'
     s.license = {
       :type => 'MIT',
       :file => 'License.txt'
