@@ -83,7 +83,7 @@ typedef enum{
 
 @interface RichTextEditorToolbar : UIScrollView
 
-@property (nonatomic, weak) id <RichTextEditorToolbarDelegate> delegate;
+@property (nonatomic, weak) id <RichTextEditorToolbarDelegate> toolbarDelegate;
 @property (nonatomic, weak) id <RichTextEditorToolbarDataSource> dataSource;
 
 - (id)initWithFrame:(CGRect)frame delegate:(id <RichTextEditorToolbarDelegate>)delegate dataSource:(id <RichTextEditorToolbarDataSource>)dataSource;
